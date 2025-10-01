@@ -27,7 +27,7 @@ const AddIngredientForm: React.FC = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    fetch("http://localhost:8010/ingredients", {
+    fetch("http://localhost:8000/ingredients", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

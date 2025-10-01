@@ -12,12 +12,12 @@ function AllIngredients() {
   useEffect(() => {
     const fetchIngredients = async () => {
       try {
-        const response = await fetch("http://localhost:8010/ingredients");
+        const response = await fetch("http://localhost:8000/ingredients");
         if (!response.ok) {
           throw new Error(`Response status: ${response.status}`);
         }
 
-        const data: IngredientResponse = await response.json();
+        const data: IngredientResponse[] = await response.json();
         setIngredients(data);
       } catch (error: any) {
         console.error(error.message);

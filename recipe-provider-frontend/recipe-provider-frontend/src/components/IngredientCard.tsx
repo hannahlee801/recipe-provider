@@ -1,12 +1,42 @@
+import { Button } from "./ui/button";
+
 type IngredientCardInfo = {
   name: string;
   amount: string;
 };
 
 const IngredientCard: React.FC<IngredientCardInfo> = ({ name, amount }) => {
+  const handleDelete = async (name) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8000/ingredients/${encodeURIComponent(name)}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error!");
+      }
+    } catch (error) {
+      console.error("Error deleting item", error);
+    }
+  };
+
   return (
-    <div className="bg-deepblue-100 text-white text-center text-wrap w-52 h-20 mb-5 flex justify-center rounded-xl">
-      <div className="flex flex-col justify-center">
+    <div className="bg-deepblue-100 text-white text-center text-wrap w-52 h-24 mb-5 flex flex-col justify-center rounded-xl">
+      <div className="flex justify-end">
+        <span>
+          <Button
+            type="submit"
+            className="w-3 h-5 bg-transparent"
+            onClick={() => handleDelete(name)}
+          >
+            x
+          </Button>
+        </span>
+      </div>
+      <div className="flex flex-col justify-center mb-3">
         <h1 className="text-xl">{name}</h1>
         <h3 className="text-sm">{amount}</h3>
       </div>

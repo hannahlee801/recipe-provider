@@ -21,7 +21,7 @@ function App() {
       <div className="flex flex-col items-center">
         <h1>
           Do you have any dietary restrictions? And do you have any specific
-          cuisine requests (i.e. Mexican, breakfast, etc.)?
+          requests (i.e. a specific cuisine, high protein, 30 minute recipes)?
         </h1>
         <h1 className="mb-5">
           Fill out the form below and click submit to get some recipes!

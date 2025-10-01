@@ -7,6 +7,10 @@ type RecipeRequestFormData = {
   request: string;
 };
 
+type RecipeResponseData = {
+  recipe: string;
+};
+
 const RecipeRequestForm: React.FC = () => {
   const [newRecipeFormData, setNewRecipeFormData] =
     useState<RecipeRequestFormData>({

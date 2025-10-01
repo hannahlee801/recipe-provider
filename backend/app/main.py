@@ -5,9 +5,9 @@ from sqlmodel import Session, select
 from fastmcp import FastMCP
 from fastmcp.server.openapi import RouteMap, MCPType
 
-from app.database import get_db
-from app.models import Ingredient
-from app.schemas import CreateRecipeRequest, CreateIngredientRequest
+from .database import get_db
+from .models import Ingredient
+from .schemas import CreateRecipeRequest, CreateIngredientRequest
 import ollama
 
 app = FastAPI(title="Recipe Provider")

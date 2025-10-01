@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from app.models import Ingredient
+from .models import Ingredient
 
 # class CreateUserRequest(BaseModel):
 #     name: str
