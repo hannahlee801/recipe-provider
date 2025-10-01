@@ -16,10 +16,10 @@ const IngredientCard: React.FC<IngredientCardInfo> = ({ name, amount }) => {
       );
 
       if (!response.ok) {
-        throw new Error("Error!");
+        throw new Error(`Response status: ${response.status}`);
       }
-    } catch (error) {
-      console.error("Error deleting item", error);
+    } catch (error: any) {
+      console.error(error.message);
     }
   };
 
