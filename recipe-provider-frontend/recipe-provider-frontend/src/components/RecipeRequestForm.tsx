@@ -35,15 +35,17 @@ const RecipeRequestForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    fetch("http://localhost:8000/recipes", {
-      method: "POST",
-      body: JSON.stringify(newRecipeFormData),
-      mode: "cors",
-    });
+    useEffect(() => {
+      fetch("http://localhost:8000/recipes", {
+        method: "POST",
+        body: JSON.stringify(newRecipeFormData),
+        mode: "cors",
+      });
 
-    setNewRecipeFormData({
-      dietary_restriction: "",
-      request: "",
+      setNewRecipeFormData({
+        dietary_restriction: "",
+        request: "",
+      });
     });
   };
 

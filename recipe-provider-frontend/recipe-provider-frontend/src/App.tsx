@@ -1,4 +1,3 @@
-import AddIngredientForm from "./components/AddIngredients";
 import Header from "./components/Header";
 import AllIngredients from "./components/Ingredients";
 import RecipeRequestForm from "./components/RecipeRequestForm";
@@ -11,12 +10,7 @@ function App() {
       <div className="text-center mt-25 mb-25 mr-15 ml-15 font-bold text-5xl">
         <h1 className="">What will you make today?</h1>
       </div>
-      <div className="flex flex-col items-center">
-        <h1 className="text-lg">Input each ingredient you currently have:</h1>
-        <AddIngredientForm />
-      </div>
       <div className="mr-9 ml-9 mt-5">
-        <h1 className="text-3xl mb-5">Your Ingredients:</h1>
         <AllIngredients />
       </div>
       <div className="flex flex-col items-center mt-15 text-lg">

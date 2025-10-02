@@ -7,7 +7,13 @@ type NewIngredientFormData = {
   amount: string;
 };
 
-const AddIngredientForm: React.FC = () => {
+type NewIngredientProps = {
+  handleIngredientSubmit: (name: string, amount: string) => void;
+};
+
+const AddIngredientForm: React.FC<NewIngredientProps> = ({
+  handleIngredientSubmit,
+}) => {
   const [newIngredientFormData, setNewIngredientFormData] =
     useState<NewIngredientFormData>({
       name: "",
@@ -40,6 +46,11 @@ const AddIngredientForm: React.FC = () => {
       name: "",
       amount: "",
     });
+
+    handleIngredientSubmit(
+      newIngredientFormData.name,
+      newIngredientFormData.amount
+    );
   };
 
   return (

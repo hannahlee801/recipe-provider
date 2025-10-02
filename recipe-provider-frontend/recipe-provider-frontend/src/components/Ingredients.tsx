@@ -1,3 +1,4 @@
+import AddIngredientForm from "./AddIngredients";
 import IngredientCard from "./IngredientCard";
 import { useEffect, useState } from "react";
 
@@ -33,17 +34,34 @@ function AllIngredients() {
     setIngredients(newIngredients);
   };
 
+  const ingredientSubmit = (
+    ingredientName: string,
+    ingredientAmount: string
+  ) => {
+    setIngredients([
+      ...ingredients,
+      { name: ingredientName, amount: ingredientAmount },
+    ]);
+  };
+
   return (
-    <div className="flex space-x-5 flex-wrap mb-5">
-      {ingredients &&
-        ingredients.map((ingredient) => (
-          <IngredientCard
-            key={ingredient.name}
-            name={ingredient.name}
-            amount={ingredient.amount}
-            handleIngredientDelete={handleDelete}
-          />
-        ))}
+    <div>
+      <div className="flex flex-col items-center">
+        <h1 className="text-lg">Input each ingredient you currently have:</h1>
+        <AddIngredientForm handleIngredientSubmit={ingredientSubmit} />
+      </div>
+      <h1 className="text-3xl mb-5">Your Ingredients:</h1>
+      <div className="flex space-x-5 flex-wrap mb-5">
+        {ingredients &&
+          ingredients.map((ingredient) => (
+            <IngredientCard
+              key={ingredient.name}
+              name={ingredient.name}
+              amount={ingredient.amount}
+              handleIngredientDelete={handleDelete}
+            />
+          ))}
+      </div>
     </div>
   );
 }
