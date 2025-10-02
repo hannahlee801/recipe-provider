@@ -1,13 +1,13 @@
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 type RecipeRequestFormData = {
   dietary_restriction: string;
   request: string;
 };
 
-type RecipeResponseData = {
+type RecipeResponse = {
   recipe: string;
 };
 
@@ -17,6 +17,10 @@ const RecipeRequestForm: React.FC = () => {
       dietary_restriction: "",
       request: "",
     });
+
+  const [recipeResponse, setRecipeResponse] = useState<RecipeResponse | null>(
+    null
+  );
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -28,14 +32,11 @@ const RecipeRequestForm: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    fetch("http://localhost:8010/recipes", {
+    fetch("http://localhost:8000/recipes", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
       body: JSON.stringify(newRecipeFormData),
       mode: "cors",
     });

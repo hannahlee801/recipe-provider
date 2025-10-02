@@ -26,11 +26,23 @@ function AllIngredients() {
     fetchIngredients();
   }, []);
 
+  const handleDelete = (name: string) => {
+    const newIngredients = ingredients.filter(
+      (ingredient) => ingredient.name !== name
+    );
+    setIngredients(newIngredients);
+  };
+
   return (
     <div className="flex space-x-5 flex-wrap mb-5">
       {ingredients &&
         ingredients.map((ingredient) => (
-          <IngredientCard name={ingredient.name} amount={ingredient.amount} />
+          <IngredientCard
+            key={ingredient.name}
+            name={ingredient.name}
+            amount={ingredient.amount}
+            handleIngredientDelete={handleDelete}
+          />
         ))}
     </div>
   );

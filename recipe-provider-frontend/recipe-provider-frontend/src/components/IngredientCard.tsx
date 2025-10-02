@@ -1,12 +1,18 @@
 import { Button } from "./ui/button";
 
 type IngredientCardInfo = {
+  key: string;
   name: string;
   amount: string;
+  handleIngredientDelete: (name: string) => void;
 };
 
-const IngredientCard: React.FC<IngredientCardInfo> = ({ name, amount }) => {
-  const handleDelete = async (name) => {
+const IngredientCard: React.FC<IngredientCardInfo> = ({
+  name,
+  amount,
+  handleIngredientDelete,
+}) => {
+  const handleDelete = async () => {
     try {
       const response = await fetch(
         `http://localhost:8000/ingredients/${encodeURIComponent(name)}`,
@@ -21,6 +27,8 @@ const IngredientCard: React.FC<IngredientCardInfo> = ({ name, amount }) => {
     } catch (error: any) {
       console.error(error.message);
     }
+
+    handleIngredientDelete(name);
   };
 
   return (
@@ -30,7 +38,7 @@ const IngredientCard: React.FC<IngredientCardInfo> = ({ name, amount }) => {
           <Button
             type="submit"
             className="w-3 h-5 bg-transparent"
-            onClick={() => handleDelete(name)}
+            onClick={handleDelete}
           >
             x
           </Button>

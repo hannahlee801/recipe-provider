@@ -2,8 +2,7 @@ from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 # from app.routers import ai, auth
 from sqlmodel import Session, select
-from fastmcp import FastMCP
-from fastmcp.server.openapi import RouteMap, MCPType
+from fastapi_mcp import FastApiMCP
 
 from .database import get_db
 from .models import Ingredient
@@ -31,7 +30,7 @@ async def create_ingredient(new_ingredient: CreateIngredientRequest, db: Session
     db.add(ingredient)
     db.commit()
 
-@app.post("/recipes")
+@app.post("/recipes", operation_id="generate_recipe")
 async def generate_recipes(create_recipe_request: CreateRecipeRequest, db: Session = Depends(get_db)) -> dict[str, str]:
     ingredients: list[Ingredient] = db.exec(select(Ingredient)).all()
     prompt: str = f'Create three recipes using the current ingredient list {ingredients} and accommodating any dietary restrictions {create_recipe_request.dietary_restriction} and cuisine requests {create_recipe_request.request}'
@@ -49,16 +48,5 @@ async def delete_ingredient(ingredient_name: str, db: Session = Depends(get_db))
     db.delete(ingredient)
     db.commit()
 
-
-
-# mcp = FastMCP("RecipeMCP")
-
-# @mcp.prompt
-# async def return_recipes(create_recipe_request: CreateRecipeRequest) -> list[RecipeRequestResponse]:
-#     response = ollama.generate(model='llama3', prompt=f'Create three recipes using the current ingredient list {create_recipe_request.ingredients} and accommodating any dietary restrictions {create_recipe_request.dietary_restriction} and cuisine requests {create_recipe_request.request}')
-#     return response
-
-# mcp_app = mcp.http_app(path='/mcp')
-# app = FastAPI(title="RecipeProvider", lifespan=mcp_app.lifespan)
-
-# mcp.mount(app)
+mcp = FastApiMCP(app, include_operations=["generate_recipe"])
+mcp.mount()

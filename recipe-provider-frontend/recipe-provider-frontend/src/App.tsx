@@ -12,13 +12,14 @@ function App() {
         <h1 className="">What will you make today?</h1>
       </div>
       <div className="flex flex-col items-center">
-        <h1>Input each ingredient you currently have:</h1>
+        <h1 className="text-lg">Input each ingredient you currently have:</h1>
         <AddIngredientForm />
       </div>
-      <div className="mr-9 ml-9">
+      <div className="mr-9 ml-9 mt-5">
+        <h1 className="text-3xl mb-5">Your Ingredients:</h1>
         <AllIngredients />
       </div>
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center mt-15 text-lg">
         <h1>
           Do you have any dietary restrictions? And do you have any specific
           requests (i.e. a specific cuisine, high protein, 30 minute recipes)?
@@ -28,7 +29,6 @@ function App() {
         </h1>
         <RecipeRequestForm />
       </div>
-      <div></div>
       <img
         src="../src/assets/food-collage.webp"
         alt="Food Collage"
