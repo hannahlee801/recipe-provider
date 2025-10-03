@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="text-white  font-alegreya">
       <Header />
-      <div className="text-center mt-25 mb-25 mr-15 ml-15 font-bold text-5xl">
+      <div className="text-center mt-20 mb-15 mr-15 ml-15 font-bold text-5xl">
         <h1 className="">What will you make today?</h1>
       </div>
       <div className="mr-9 ml-9 mt-5">
@@ -15,19 +15,16 @@ function App() {
       </div>
       <div className="flex flex-col items-center mt-15 text-lg">
         <h1>
-          Do you have any dietary restrictions? And do you have any specific
-          requests (i.e. a specific cuisine, high protein, 30 minute recipes)?
+          Do you have any dietary restrictions or specific requests (i.e. a
+          specific cuisine, high protein, 30 minute recipes)?
         </h1>
         <h1 className="mb-5">
           Fill out the form below and click submit to get some recipes!
         </h1>
-        <RecipeRequestForm />
+        <div className="mb-20">
+          <RecipeRequestForm />
+        </div>
       </div>
-      <img
-        src="../src/assets/food-collage.webp"
-        alt="Food Collage"
-        className="w-screen"
-      />
     </div>
   );
 }

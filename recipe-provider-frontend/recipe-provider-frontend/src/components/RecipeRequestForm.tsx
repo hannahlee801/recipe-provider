@@ -1,6 +1,6 @@
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 type RecipeRequestFormData = {
   dietary_restriction: string;
@@ -35,23 +35,38 @@ const RecipeRequestForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    useEffect(() => {
-      fetch("http://localhost:8000/recipes", {
-        method: "POST",
-        body: JSON.stringify(newRecipeFormData),
-        mode: "cors",
-      });
+    const fetchRecipe = async () => {
+      try {
+        const response = await fetch(`http://localhost:8000/recipes`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newRecipeFormData),
+          mode: "cors",
+        });
 
-      setNewRecipeFormData({
-        dietary_restriction: "",
-        request: "",
-      });
-    });
+        if (!response.ok) {
+          throw new Error(`Response status: ${response.status}`);
+        }
+
+        const data: RecipeResponse = await response.json();
+        setRecipeResponse(data);
+
+        setNewRecipeFormData({
+          dietary_restriction: "",
+          request: "",
+        });
+      } catch (error: any) {
+        console.error("Error fetching routine", error);
+      }
+    };
+    fetchRecipe();
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className="ml-25 mr-25">
+      <form onSubmit={handleSubmit} className="flex flex-col items-center">
         <div className="flex flex-col w-60">
           <div>
             <Input
@@ -85,6 +100,12 @@ const RecipeRequestForm: React.FC = () => {
           </Button>
         </div>
       </form>
+      <div className="">
+        <h1 className="text-left text-3xl mb-5">Recipes:</h1>
+        <h2 className="bg-deepblue-100 text-white pl-10 pr-10 pt-10 pb-10 rounded-2xl drop-shadow-xl drop-shadow-black border-2 border-tigerseye-100">
+          {recipeResponse?.recipe}
+        </h2>
+      </div>
     </div>
   );
 };

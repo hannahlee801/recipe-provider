@@ -32,7 +32,7 @@ const IngredientCard: React.FC<IngredientCardInfo> = ({
   };
 
   return (
-    <div className="bg-deepblue-100 text-white text-center text-wrap w-52 h-24 mb-5 flex flex-col justify-center rounded-xl">
+    <div className="bg-deepblue-100 text-white text-center text-wrap w-52 h-24 mb-5 flex flex-col justify-center rounded-xl drop-shadow-lg drop-shadow-black border-2 border-tigerseye-100">
       <div className="flex justify-end">
         <span>
           <Button

@@ -33,10 +33,10 @@ async def create_ingredient(new_ingredient: CreateIngredientRequest, db: Session
 @app.post("/recipes", operation_id="generate_recipe")
 async def generate_recipes(create_recipe_request: CreateRecipeRequest, db: Session = Depends(get_db)) -> dict[str, str]:
     ingredients: list[Ingredient] = db.exec(select(Ingredient)).all()
-    prompt: str = f'Create three recipes using the current ingredient list {ingredients} and accommodating any dietary restrictions {create_recipe_request.dietary_restriction} and cuisine requests {create_recipe_request.request}'
+    prompt: str = f'Create three recipes. Here are the available ingredients {ingredients}. Please accommodate any dietary restrictions {create_recipe_request.dietary_restriction} and cuisine requests {create_recipe_request.request}. Please dont add extra notes. Please number the recipes (for example, Recipe 1. Breakfast Burrito) and also number the instructions for readability. Please add a - in front of each ingredient for readability. Please put each ingredient on a new line. Please put each recipe on a new line. Thank you.'
     try:
-        response = ollama.generate(model= "llama3", prompt=prompt)
-        return {"response": response['response']}
+        response = ollama.generate(model= "llama3.2:1b", prompt=prompt)
+        return {"recipe": response['response']}
     except Exception as e:
         return {"error": str(e)}
 
